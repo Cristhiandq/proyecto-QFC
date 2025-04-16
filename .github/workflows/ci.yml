@@ -1,0 +1,29 @@
+name: Validación HTML y JS
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: 🔧 Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 🧼 Instalar dependencias
+        run: npm install --save-dev html-validator eslint
+
+      - name: ✅ Validar HTML
+        run: npx html-validator-cli --file=index.html --verbose
+
+      - name: 🧹 Lint de JS
+        run: npx eslint js/

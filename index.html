@@ -31,62 +31,15 @@
   <div id="pedido">
     <h2>Pedido Actual</h2>
     <ul id="listaPedido"></ul>
-    <p>Total: $<span id="total">0</span></p>
+    <p>Total: $<span id="total">0.00</span></p>
     <button onclick="finalizarPedido()">Finalizar Pedido</button>
   </div>
 
+  <!-- Scripts -->
+  <script src="js/carrito.js"></script>
   <script>
-    // Lista de productos disponibles
-    const productos = [
-      { id: 1, nombre: "Hamburguesa Clásica", precio: 5.00 },
-      { id: 2, nombre: "Papas Fritas", precio: 2.50 },
-      { id: 3, nombre: "Refresco", precio: 1.75 }
-    ];
-
-    // Pedido actual
-    let pedido = [];
-
-    // Mostrar el menú
-    const menuDiv = document.getElementById("menu");
-    productos.forEach(prod => {
-      const div = document.createElement("div");
-      div.className = "producto";
-      div.innerHTML = `${prod.nombre} - $${prod.precio.toFixed(2)}
-        <button onclick="agregarAlPedido(${prod.id})">Agregar</button>`;
-      menuDiv.appendChild(div);
-    });
-
-    function agregarAlPedido(id) {
-      const producto = productos.find(p => p.id === id);
-      pedido.push(producto);
-      actualizarPedido();
-    }
-
-    function actualizarPedido() {
-      const lista = document.getElementById("listaPedido");
-      lista.innerHTML = "";
-      let total = 0;
-
-      pedido.forEach((item, index) => {
-        total += item.precio;
-        const li = document.createElement("li");
-        li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
-        lista.appendChild(li);
-      });
-
-      document.getElementById("total").textContent = total.toFixed(2);
-    }
-
-    function finalizarPedido() {
-      if (pedido.length === 0) {
-        alert("No hay productos en el pedido.");
-        return;
-      }
-
-      alert("¡Pedido finalizado! Total: $" + document.getElementById("total").textContent);
-      pedido = [];
-      actualizarPedido();
-    }
+    // Cargar el menú al iniciar
+    document.addEventListener("DOMContentLoaded", mostrarMenu);
   </script>
 </body>
 </html>
